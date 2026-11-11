@@ -1,0 +1,56 @@
+
+# Q3 - Vehicle Registration Number Validator
+
+def normalize_number(number):
+    number = number.upper()
+    number = number.replace(" ", "")
+    number = number.replace("-", "")
+    return number
+
+
+def validate_number(number):
+    if len(number) != 9 and len(number) != 10:
+        return False
+
+    if not (number[0:2].isalpha() and number[2:4].isdigit()):
+        return False
+
+    series = number[4:-4]
+
+    if not (len(series) == 1 or len(series) == 2):
+        return False
+
+    if not series.isalpha():
+        return False
+
+    if not number[-4:].isdigit():
+        return False
+
+    return True
+
+
+def format_receipt(number):
+    return number[0:2] + " " + number[2:4] + " " + number[4:-4] + " " + number[-4:]
+
+
+# Test vehicle registration numbers
+vehicle_numbers = [
+    "tn 09 ab 1234",
+    "TN-09-AB-1234",
+    "Tn09Ab1234",
+    "KA 05 M 6789",
+    "1234 TN AB",
+    "TN 09 ABC 1234"
+]
+
+print("VEHICLE REGISTRATION VALIDATOR")
+print("--------------------------------")
+
+for number in vehicle_numbers:
+    normalized = normalize_number(number)
+
+    if validate_number(normalized):
+        print(number, "-> VALID")
+        print("Receipt:", format_receipt(normalized))
+    else:
+        print(number, "-> INVALID")
