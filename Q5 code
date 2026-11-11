@@ -1,0 +1,130 @@
+
+# Q5 - Functions, Parameters and Scope
+
+# Demonstrating the mutable default argument bug
+def add_item_buggy(item, order=[]):
+    order.append(item)
+    return order
+
+
+# Correct function using None as the default value
+def add_item(item, order=None):
+    if order is None:
+        order = []
+    order.append(item)
+    return order
+
+
+print("1. MUTABLE DEFAULT ARGUMENT BUG")
+print("--------------------------------")
+print(add_item_buggy("Tea"), add_item_buggy("Vada"))
+
+print("\n2. CORRECTED FUNCTION")
+print("---------------------")
+print(add_item("Tea"), add_item("Vada"))
+
+print("\n3. THREE INDEPENDENT CUSTOMER ORDERS")
+print("------------------------------------")
+customer1 = add_item("Tea")
+customer1 = add_item("Vada", customer1)
+
+customer2 = add_item("Coffee")
+customer2 = add_item("Samosa", customer2)
+
+customer3 = add_item("Juice")
+customer3 = add_item("Sandwich", customer3)
+
+print("Customer 1:", customer1)
+print("Customer 2:", customer2)
+print("Customer 3:", customer3)
+
+print("\n4. DEFAULT ARGUMENT STORAGE")
+print("---------------------------")
+print(add_item_buggy.__defaults__)
+
+
+# Positional, keyword and default parameters
+def order_details(item, quantity=1):
+    return item, quantity
+
+
+print("\n5. PARAMETER TYPES")
+print("-----------------")
+print("Positional:", order_details("Tea", 2))
+print("Keyword:", order_details(item="Coffee", quantity=3))
+print("Default:", order_details("Juice"))
+
+
+# Returning more than one value
+def calculate_bill(amount, gst_rate=5):
+    gst = amount * gst_rate / 100
+    total = amount + gst
+    return total, gst
+
+
+print("\n6. MULTIPLE RETURN VALUES")
+print("-------------------------")
+total, gst = calculate_bill(200)
+print("GST:", gst)
+print("Total:", total)
+
+
+# Local and global scope
+canteen_name = "Campus Canteen"
+
+
+def show_canteen():
+    local_message = "Welcome!"
+    print("\n7. LOCAL AND GLOBAL SCOPE")
+    print("------------------------")
+    print("Global variable:", canteen_name)
+    print("Local variable:", local_message)
+
+
+show_canteen()
+
+
+# Global keyword demonstration
+order_count = 0
+
+
+def update_order_count():
+    global order_count
+    order_count += 1
+
+
+update_order_count()
+print("\nGlobal order count:", order_count)
+
+
+# Nonlocal scope demonstration
+def customer_counter():
+    count = 0
+
+    def increase():
+        nonlocal count
+        count += 1
+        return count
+
+    return increase
+
+
+counter = customer_counter()
+print("\n8. NONLOCAL SCOPE")
+print("----------------")
+print(counter())
+print(counter())
+
+
+# Alternative: caller passes the order list explicitly
+def add_item_explicit(item, order):
+    order.append(item)
+    return order
+
+
+print("\n9. EXPLICIT LIST ALTERNATIVE")
+print("----------------------------")
+customer_order = []
+add_item_explicit("Tea", customer_order)
+add_item_explicit("Vada", customer_order)
+print("Order:", customer_order)
