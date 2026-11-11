@@ -1,0 +1,111 @@
+# Q2 - OTP Verification using while and for loops
+
+correct_otp = "246810"
+correct_security_answer = "blue"
+
+# WHILE LOOP IMPLEMENTATION
+print("OTP Verification using WHILE loop")
+
+attempts = 0
+verified = False
+
+while attempts < 3:
+    entered_otp = input("Enter OTP: ")
+
+    if entered_otp.strip() == "":
+        pass
+        print("Blank entry. Please try again.")
+        continue
+
+    attempts += 1
+
+    if entered_otp == correct_otp:
+        print("OTP verified successfully!")
+        verified = True
+        break
+    else:
+        print("Incorrect OTP. Attempts used:", attempts)
+
+else:
+    print("Three attempts completed.")
+
+if not verified:
+    answer = input("Answer the security question (Favourite colour?): ")
+
+    if answer.lower() == correct_security_answer:
+        print("Correct answer! Two extra attempts granted.")
+
+        for extra in range(2):
+            entered_otp = input("Enter OTP: ")
+
+            if entered_otp.strip() == "":
+                pass
+                print("Blank entry. Please try again.")
+                continue
+
+            if entered_otp == correct_otp:
+                print("OTP verified successfully!")
+                verified = True
+                break
+            else:
+                print("Incorrect OTP.")
+
+        else:
+            print("Account locked for 30 minutes.")
+
+    else:
+        print("Wrong security answer. Account locked for 30 minutes.")
+
+
+# FOR LOOP IMPLEMENTATION
+print("\nOTP Verification using FOR loop")
+
+verified = False
+attempts = 0
+
+for attempt in range(3):
+    entered_otp = input("Enter OTP: ")
+
+    if entered_otp.strip() == "":
+        pass
+        print("Blank entry. Please try again.")
+        continue
+
+    attempts += 1
+
+    if entered_otp == correct_otp:
+        print("OTP verified successfully!")
+        verified = True
+        break
+    else:
+        print("Incorrect OTP. Attempts used:", attempts)
+
+else:
+    print("Three attempts completed.")
+
+if not verified:
+    answer = input("Answer the security question (Favourite colour?): ")
+
+    if answer.lower() == correct_security_answer:
+        print("Correct answer! Two extra attempts granted.")
+
+        for extra in range(2):
+            entered_otp = input("Enter OTP: ")
+
+            if entered_otp.strip() == "":
+                pass
+                print("Blank entry. Please try again.")
+                continue
+
+            if entered_otp == correct_otp:
+                print("OTP verified successfully!")
+                verified = True
+                break
+            else:
+                print("Incorrect OTP.")
+
+        else:
+            print("Account locked for 30 minutes.")
+
+    else:
+        print("Wrong security answer. Account locked for 30 minutes.")
